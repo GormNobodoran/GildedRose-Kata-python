@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from Domain.item import Item
 
 class GildedRose(object):
     __HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros"
@@ -19,17 +19,17 @@ class GildedRose(object):
             if item.name != self.__AGED_BRIE and item.name != self.__BACKSTAGE_PASSES:
                 if item.quality > self.__MIN_QUALITY:
                     if item.name != self.__HAND_OF_RAGNAROS:
-                        item.quality = item.quality - 1
+                        item.decreaseQuality(item)
             else:
                 if item.quality < self.__MAX_QUALITY:
-                    item.quality = item.quality + 1
+                    item.increaseQuality(item)
                     if item.name == self.__BACKSTAGE_PASSES:
                         if item.sell_in < self.__SELL_IN_LONG:
                             if item.quality < self.__MAX_QUALITY:
-                                item.quality = item.quality + 1
+                                item.increaseQuality(item)
                         if item.sell_in < self.__SELL_IN_MID:
                             if item.quality < self.__MAX_QUALITY:
-                                item.quality = item.quality + 1
+                                item.increaseQuality(item)
             if item.name != self.__HAND_OF_RAGNAROS:
                 item.sell_in = item.sell_in - 1
             if item.sell_in < self.__SELL_TODAY:
@@ -37,19 +37,13 @@ class GildedRose(object):
                     if item.name != self.__BACKSTAGE_PASSES:
                         if item.quality > self.__MIN_QUALITY:
                             if item.name != self.__HAND_OF_RAGNAROS:
-                                item.quality = item.quality - 1
+                                item.decreaseQuality(item)
                     else:
                         item.quality = item.quality - item.quality
                 else:
                     if item.quality < self.__MAX_QUALITY:
-                        item.quality = item.quality + 1
+                        item.increaseQuality(item)
 
 
-class Item:
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
 
-    def __repr__(self):
-        return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
