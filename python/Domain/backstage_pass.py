@@ -4,13 +4,12 @@ from Domain.item import Item
 
 class BackstagePass(Item):
     def update(self):
-        if self.isBelowMaxQuality():
+        self.increaseQuality()
+
+        if self.isBelowSellInMax():
             self.increaseQuality()
 
-        if self.isBelowSellInMax() and self.isBelowMaxQuality():
-            self.increaseQuality()
-
-        if self.isBelowSellInMid() and self.isBelowMaxQuality():
+        if self.isBelowSellInMid():
             self.increaseQuality()
 
         self.decreaseSellIn()

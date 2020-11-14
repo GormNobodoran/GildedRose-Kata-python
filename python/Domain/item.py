@@ -22,10 +22,12 @@ class Item(metaclass=ABCMeta):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
     def increaseQuality(self) -> None:
-        self.quality = self.quality + self.__INCREASING_FACTOR
+        if self.isBelowMaxQuality():
+            self.quality = self.quality + self.__INCREASING_FACTOR
 
     def decreaseQuality(self) -> None:
-        self.quality = self.quality - self.__DECREASING_FACTOR
+        if self.isAboveMinQuality():
+            self.quality = self.quality - self.__DECREASING_FACTOR
 
     def setQualityToMinimum(self) -> None:
         self.quality = self.__MIN_QUALITY
