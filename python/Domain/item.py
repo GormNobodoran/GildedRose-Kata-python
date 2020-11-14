@@ -18,9 +18,6 @@ class Item(metaclass=ABCMeta):
         self.sell_in = sell_in
         self.quality = quality
 
-    def __factory_method(self):
-        pass
-
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
@@ -54,9 +51,8 @@ class Item(metaclass=ABCMeta):
     def isBelowSellInMin(self) -> bool:
         return self.sell_in < self.__SELL_IN_MIN
 
+    @abstractmethod
     def update(self) -> None:
-        if self.isAboveMinQuality():
-            self.decreaseQuality()
+        pass
 
-        if self.isBelowSellInMin() and self.isAboveMinQuality():
-            self.decreaseQuality()
+
